@@ -5,6 +5,18 @@ description: Enforces best practices for Retrofit, Room Database, Jetpack DataSt
 
 # Data Layer & Persistence SOP
 
+## Clean Kotlin, One-Liner Mappers & Latest Syntax (Mandatory)
+1. **One-Liner Mappers:** Always write DTO-to-Domain and Entity-to-Domain mapping functions as clean, single-expression extension functions:
+   ```kotlin
+   fun UserDto.toDomain() = User(id = id, name = name, email = email)
+   fun UserEntity.toDomain() = User(id = id, name = name, email = email)
+   ```
+2. **Concise Single-Expression Repository Methods:** Express straightforward DAO delegations and repository transformations as single-expression functions:
+   ```kotlin
+   override fun observeUsers(): Flow<List<User>> = userDao.observeUsers().map { entities -> entities.map { it.toDomain() } }
+   ```
+3. **Latest Kotlin 2.x Syntax:** Use Kotlin 2.x language idioms, `kotlin.time.Duration` for all network/cache timeouts (e.g., `30.seconds`), and `buildList` / `buildMap` for dynamic request construction.
+
 ## Networking (Retrofit + kotlinx.serialization)
 1. **Serialization:** Use `kotlinx.serialization` exclusively for JSON parsing. Do NOT use Moshi or Gson.
 2. **DTO Scope:** Annotate network DTOs with `@Serializable` and keep them strictly within the `data` layer.

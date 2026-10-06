@@ -5,6 +5,10 @@ description: Enforces Jetpack Compose UI patterns, zero hardcoded strings, MapLi
 
 # Jetpack Compose & MapLibre UI Guidelines
 
+## Clean Kotlin & Modern Syntax (Mandatory)
+1. **One-Liner Preference:** Prefer single-expression functions and concise one-liners for map state transformations, camera helper calculations, and style URL selectors.
+2. **Latest Syntax:** Leverage Kotlin 2.x language features, `sealed interface` for map events, and `kotlin.time.Duration` for camera animations.
+
 ## String Localization & Formatting
 1. **Zero Hardcoded Strings:** User-facing string literals in Composables, ViewModels, or data classes are strictly forbidden.
 2. **Localization Flow & Semantic Naming:** Search `res/values/strings.xml` first. If missing, auto-generate a semantic key using mandatory prefixes (`label_`, `msg_`/`message_`, `title_`, `action_`/`btn_`, `error_`, `hint_`, `desc_`/`cd_`) in `strings.xml` and access it via `stringResource(R.string.key)`.

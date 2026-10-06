@@ -13,6 +13,7 @@ description: "Token-efficient project initializer: Applies standard Android stac
 - **Persistence:** Room Database + Jetpack DataStore (Preferences/Proto)
 - **DI:** Dagger Hilt
 - **Build:** Gradle Version Catalog (`libs.versions.toml`)
+- **Language & Syntax:** Modern Kotlin (Kotlin 2.x+), clean one-liner preference for single-expression functions/properties/mappers, Kotlin Duration API
 
 ## Protocol
 1. Check for `.project-config.json` at project root.

@@ -19,3 +19,7 @@ description: "Token-efficient unit and UI test generation for ViewModels, UseCas
 
 ## Structure
 - Unit tests in `src/test/`, instrumented UI tests in `src/androidTest/`. Append `Test` to class names.
+
+## Clean Kotlin Test Code & Latest Syntax
+- **Concise One-Liners:** Prefer single-expression test helpers, one-liner assertions (`assertEquals(expected, actual)`), and compact MockK stubs (`coEvery { repo.get() } returns Result.Success(data)`).
+- **Latest Kotlin 2.x:** Use `data object` for test states, `sealed interface`, and `kotlin.time.Duration` for virtual clock advancing.

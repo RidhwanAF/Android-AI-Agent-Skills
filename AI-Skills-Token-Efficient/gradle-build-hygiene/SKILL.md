@@ -23,3 +23,7 @@ Protect `@Serializable` models and Navigation 3 routes in `proguard-rules.pro`:
 ## Room Database Migrations
 1. Always increment `@Database(version = ...)` on entity changes.
 2. Provide explicit `Migration` or `AutoMigration`. NEVER use `fallbackToDestructiveMigration()` in production.
+
+## Modern Kotlin 2.x & Clean Build DSL
+1. Target Kotlin 2.x+ with Compose compiler plugin (`alias(libs.plugins.kotlin.compose)`). Keep `.gradle.kts` files concise and idiomatic.
+

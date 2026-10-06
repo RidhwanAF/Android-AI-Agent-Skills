@@ -34,6 +34,8 @@ description: "Token-efficient Android engineering rules: Compose, Coroutines, Du
   }
   ```
 - **Preconditions & Nulls:** Use `require()`, `check()`, `?.let { }`. Prefer `sealed interface` and `data object`.
+- **Clean One-Liner Preference:** Strongly prefer concise, single-expression syntax (`fun ... = ...`), expression getters (`val isReady get() = ...`), and one-liner extension mappers (`fun UserDto.toDomain() = User(...)`). Use `takeIf`/`takeUnless` + `?:` for guard clauses. Avoid verbose multi-line block bodies with redundant `return`.
+- **Latest Kotlin 2.x Syntax:** Leverage Kotlin 2.0+ K2 compiler smart casts, Compose strong skipping mode, `sealed interface` for state/events/errors, `data object` for singleton states, `@JvmInline value class` for type-safe IDs, and standard builders (`buildList`, `buildMap`).
 
 ---
 

@@ -10,6 +10,7 @@ description: "Token-efficient Compose design: Stability annotations, edge-to-edg
 2. **Collections:** Use `kotlinx.collections.immutable.ImmutableList` in UI state classes to guarantee recomposition skipping.
 3. **Model Decoupling:** Never pass Room Entities or Network DTOs directly to Composables. Map to UI models first.
 4. **Stable Keys:** Always provide unique, stable keys in `LazyColumn`/`LazyRow` (`items(list, key = { it.id })`).
+5. **Clean One-Liners & Latest Syntax:** Prefer single-expression syntax for UI state computed properties (`val hasItems get() = items.isNotEmpty()`). Use `sealed interface` for UI states/events and `data object` for singleton states.
 
 ## Edge-to-Edge & System Insets (Android 15+)
 1. **Mandatory Inset Handling:** Handle insets dynamically via `Scaffold(innerPadding)` and `Modifier.imePadding()`.

@@ -9,7 +9,7 @@ description: Triggers automatically at the start of a task to check for or run p
 By default, all Android projects handled by this agent adhere to:
 - **UI:** Jetpack Compose (Material 3)
 - **Architecture:** Clean Architecture + MVVM + Multi-Module Pattern
-- **Language & Runtime:** Modern Kotlin, Coroutines, Flow, Kotlin Duration API
+- **Language & Runtime:** Modern Kotlin (Kotlin 2.x+), clean & concise one-liner preference for single-expression functions/properties/mappers, Coroutines, Flow, Kotlin Duration API
 - **Code Quality:** Zero hardcoded strings, explicit KDocs, strict lifecycle safety, main-thread protection
 
 ---

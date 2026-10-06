@@ -16,3 +16,8 @@ description: "Token-efficient data layer rules: Retrofit, kotlinx.serialization,
 2. **DAO Signatures:** Expose cold `Flow<T>` for reactive queries; use `suspend` for one-shot insert/update/delete.
 3. **Threading:** Always run DAO operations on `Dispatchers.IO`.
 4. **DataStore (Mandatory):** Use Jetpack DataStore (Preferences or Proto) for settings, tokens, and preferences. NEVER use `SharedPreferences`. Expose data as `Flow`.
+
+## Clean Mappers & Latest Syntax
+1. **One-Liner Mappers:** Express DTO-to-Domain and Entity-to-Domain mappers as single-expression functions: `fun UserDto.toDomain() = User(id = id, name = name)`.
+2. **One-Liner Repository Delegations:** Express direct DAO calls concisely: `override fun observeUsers() = userDao.observeUsers().map { it.map { entity -> entity.toDomain() } }`.
+3. **Latest Kotlin 2.x:** Use Kotlin 2.x idioms, `kotlin.time.Duration`, and `buildList`/`buildMap` for dynamic queries.

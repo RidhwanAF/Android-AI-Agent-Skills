@@ -5,6 +5,10 @@ description: Enforces Clean Architecture boundaries, multi-module dependency rul
 
 # Clean Architecture & Core Design Patterns
 
+## Clean, Idiomatic Kotlin & Latest Syntax Standards (Mandatory)
+1. **Clean One-Liner Preference:** Write concise, expressive, and self-documenting Kotlin. Always prefer single-expression functions (`fun execute(id: String) = repository.get(id)`), property getters (`val isReady get() = state is Ready`), and one-liner model mappers over verbose multi-line block bodies.
+2. **Latest Kotlin 2.x Features:** Target modern Kotlin syntax — use `sealed interface` for all domain hierarchies and errors, `data object` for singleton states, `@JvmInline value class` for zero-overhead domain identifiers, and `kotlin.time.Duration` for temporal representations.
+
 ## Dependency Direction & Module Isolation
 1. **Dependency Flow:** Strictly enforce `Feature (UI/ViewModel) -> Domain (Use Cases/Interfaces) -> Data (Repositories/DataSources)`.
 2. **Domain Isolation:** `domain` modules MUST NEVER import `android.*` framework packages, `androidx.compose.runtime.*`, Retrofit annotations, Room annotations, serialization annotations (`@Serializable`, Gson, Moshi, Jackson), or concrete data-layer classes. If any such leak is detected, proactively flag it and provide a recommended remediation plan to decouple it.

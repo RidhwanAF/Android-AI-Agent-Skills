@@ -17,3 +17,7 @@ description: "Token-efficient MapLibre Compose UI: Zero hardcoded strings, state
 - Clean up listeners in Composables using `DisposableEffect`.
 - Never hold Activity or View `Context` inside ViewModels.
 - Use `kotlin.time.Duration` for time values (`delay(5.seconds)`).
+
+## Clean Kotlin & Modern Syntax
+- **One-Liner Preference:** Prefer single-expression functions for map state transformations, camera calculations, and style URL selectors.
+- **Latest Syntax:** Use Kotlin 2.x language features, `sealed interface` for map events, and `kotlin.time.Duration` for animations.
