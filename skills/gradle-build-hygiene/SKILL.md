@@ -33,3 +33,7 @@ description: Enforces version catalog (libs.versions.toml) management, R8/ProGua
 ## Room Database Migrations
 1. **Schema Changes:** Never modify a Room `@Entity` without incrementing the `version` field in the `@Database` declaration.
 2. **Explicit Migrations:** Always write explicit `Migration` specs or `AutoMigration` definitions. Never permit `fallbackToDestructiveMigration()` in production code.
+
+## Modern Kotlin 2.x & Clean Build DSL
+1. **Kotlin 2.x & Compose Plugin:** Target modern Kotlin 2.x+ and leverage the official Kotlin Compose compiler plugin (`alias(libs.plugins.kotlin.compose)`).
+2. **Clean Gradle Kotlin DSL:** Write clean, concise `.gradle.kts` configuration using type-safe catalog accessors and idiomatic Kotlin.

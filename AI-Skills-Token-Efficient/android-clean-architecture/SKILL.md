@@ -11,6 +11,7 @@ description: "Token-efficient Clean Architecture: Layer boundaries, KMP domain i
 3. **No Domain UI Annotations:** Never use `@Immutable` or `@Stable` in domain. Use `kotlinx.collections.immutable` collections.
 4. **Typed Errors:** Return `sealed interface AppResult<out T, out E : DomainError>` from UseCases and Repositories. Avoid raw `Result<Throwable>`.
 5. **Platform Capabilities:** Abstract OS-level features (biometrics, sensors, secure storage) behind pure domain interfaces; implement in `data` or platform modules via DI or `expect`/`actual`.
+6. **Clean One-Liners & Latest Syntax:** Express UseCases (`fun execute() = repo.get()`), getters, and domain mappers as single-expression one-liners. Use Kotlin 2.x `sealed interface`, `data object`, and `@JvmInline value class`.
 
 ## Dagger Hilt Standards
 1. **Modules:** Declare `@Module` and `@InstallIn` in the module providing concrete implementations.

@@ -43,6 +43,78 @@ This skill provides comprehensive architectural patterns, production standards, 
 - **No AI-like Robotic Comments**: Eliminate superfluous comments like `// Here we define the variable`, `// Return result`, or restating what the code does. Keep code self-documenting with intention-revealing names.
 - Document only **non-obvious rationale**, tricky hardware/OEM workarounds, threading assumptions, or complex business logic.
 
+### Clean, Idiomatic Kotlin: One-Liner Preference & Latest Syntax (Mandatory)
+- **Clean Code Mindset**: Write expressive, self-documenting Kotlin that eliminates ceremonial boilerplate, unnecessary intermediate variables, and verbose Java-style block structures.
+- **Prefer Concise One-Liners & Single-Expression Syntax**: Whenever a function, property, mapper, or branch can be expressed cleanly as a single expression without sacrificing readability, **always prefer the one-liner**:
+  - **Single-Expression Functions (`fun ... = ...`)**: Use `= expression` instead of `{ return expression }`:
+    ```kotlin
+    // ❌ Verbose block body
+    fun calculateDiscount(price: Double, percentage: Double): Double {
+        return price * (1.0 - percentage / 100.0)
+    }
+
+    // ✅ Clean one-liner
+    fun calculateDiscount(price: Double, percentage: Double): Double = price * (1.0 - percentage / 100.0)
+    ```
+  - **Single-Expression Getters & Properties**: Use concise property syntax and expression getters instead of full getter blocks or separate functions:
+    ```kotlin
+    // ❌ Verbose
+    val isReady: Boolean
+        get() {
+            return state is UiState.Ready && items.isNotEmpty()
+        }
+
+    // ✅ Clean one-liner
+    val isReady: Boolean get() = state is UiState.Ready && items.isNotEmpty()
+    val userCount: Int get() = users.size
+    ```
+  - **Single-Expression Mappers & Converters**: Always express DTO/Entity-to-Domain and Domain-to-UI transformations as clean, single-expression extension functions:
+    ```kotlin
+    fun UserDto.toDomain(): User = User(id = id, name = name, email = email)
+    fun UserEntity.toDomain(): User = User(id = id, name = name, email = email)
+    fun User.toUiModel(): UserItemUiModel = UserItemUiModel(id = id, name = name)
+    ```
+  - **Expression-Bodied `when` & `if-else`**: Treat `when` and `if-else` as expressions yielding values directly:
+    ```kotlin
+    fun getFilterIcon(filter: FilterType): ImageVector = when (filter) {
+        FilterType.ALL -> Icons.Default.List
+        FilterType.ACTIVE -> Icons.Default.Check
+        FilterType.COMPLETED -> Icons.Default.Done
+    }
+
+    val title = if (isNew) stringResource(R.string.title_create) else stringResource(R.string.title_edit)
+    ```
+  - **Scope Functions for One-Liner Guards & Transformations (`takeIf`, `takeUnless`, `let`, `?:`)**:
+    - Use `takeIf` / `takeUnless` combined with `?.let` and Elvis `?:` for concise guard clauses:
+    ```kotlin
+    // ❌ Verbose null/condition check
+    fun getValidUsername(input: String?): String {
+        if (input != null && input.isNotBlank()) {
+            return input.trim()
+        } else {
+            return "Anonymous"
+        }
+    }
+
+    // ✅ Clean one-liner
+    fun getValidUsername(input: String?): String = input?.trim()?.takeIf { it.isNotEmpty() } ?: "Anonymous"
+    ```
+  - **Concise Functional Chains**: Prefer clean one-line transformations over imperative accumulator loops:
+    ```kotlin
+    val activeNames = users.filter { it.isActive }.map { it.name }
+    ```
+  - **Readability & Single Responsibility Rule**: While one-liners and single expressions are strongly preferred for simplicity and elegance, maintain clarity — never sacrifice readability for extreme brevity. If a single expression exceeds cognitive clarity, decompose it into cleanly named single-expression helper functions.
+
+- **Latest Kotlin Syntax & Modern Language Features (Kotlin 2.x+)**:
+  - **Kotlin 2.0+ K2 Compiler Features**:
+    - **Enhanced Smart Casts**: Leverage Kotlin 2.0 smart casting on local variables, function calls, and property accesses without manual `as` casts.
+    - **Strong Skipping Mode in Compose**: Leverage Kotlin 2.0 Compose compiler default strong skipping, ensuring stable parameters with `@Immutable` / `kotlinx.collections.immutable` collections.
+  - **`sealed interface` over `sealed class`**: Use `sealed interface` for all state hierarchies, event definitions, and typed error types.
+  - **`data object` for Singleton Hierarchy Leaves**: Always use `data object` (Kotlin 1.9+) instead of `object` for sealed interface leaf nodes (e.g., `data object Loading : UiState`, `data object Idle : UiEvent`).
+  - **Value Classes (`@JvmInline value class`)**: Wrap domain primitives in `@JvmInline value class` for zero-overhead, type-safe identifiers (e.g., `value class UserId(val value: String)`).
+  - **`kotlin.time.Duration` for All Temporal Values**: Always use type-safe duration extensions (`5.seconds`, `250.milliseconds`, `10.minutes`) instead of raw Long/Int millisecond primitives.
+  - **Modern Standard Library Builders**: Prefer `buildList { ... }`, `buildMap { ... }`, `buildSet { ... }`, and `buildString { ... }` for constructing collections and strings concisely.
+
 ### Proactive Rule Violation Auditing & Remediation Planning
 - **Zero Tolerance for Architectural Leaks**: When analyzing or modifying existing code, if you detect violations of architectural rules (for instance: finding `@Serializable`, Retrofit/Room annotations, or `android.*` framework dependencies inside the **Domain Layer**), **do NOT silently ignore or perpetuate the violation**.
 - **Proactive Remediation Plan**: Immediately flag the violation to the user and outline a recommended refactoring plan to fix the boundary violation and restore clean separation of concerns before or alongside the requested changes.
@@ -153,6 +225,7 @@ This skill provides comprehensive architectural patterns, production standards, 
   3. Never blanket-suppress at file or class level.
 
 ### Additional Modern Kotlin Idioms
+- **Single-Expression Functions & Properties**: Express functions, getters, and mappers using concise single-expression syntax (`fun ... = ...`) wherever they consist of a single logical operation. Avoid verbose block bodies with redundant `return` statements.
 - **`sealed interface` over `sealed class`**: Prefer `sealed interface` for state/event hierarchies — it allows multiple interface inheritance and avoids forcing a common superclass.
 - **`data object` for singletons**: Use `data object` (Kotlin 1.9+) for sealed hierarchy leaf nodes with no properties (e.g., `data object Loading : UiState`).
 - **`value class` (inline class)**: Wrap primitive types with `@JvmInline value class` for type safety without runtime allocation overhead (e.g., `value class UserId(val value: String)`).
